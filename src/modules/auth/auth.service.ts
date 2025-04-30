@@ -52,7 +52,25 @@ const registerNewUser = async (payload: User) => {
   const result = await prisma.user.create({
     data: payload,
   });
-  return result;
+  const jwtData = {
+    email: result?.email,
+    status: result?.status,
+    role: result?.role,
+  };
+  const accessToken = jwtHelper.generateToken(
+    jwtData,
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string
+  );
+  const refreshToken = jwtHelper.generateToken(
+    jwtData,
+    config.jwt_refresh_secret as string,
+    config.jwt_refresh_expires_in as string
+  );
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 export const authServices = {
