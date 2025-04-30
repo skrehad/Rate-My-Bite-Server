@@ -15,5 +15,10 @@ route.post(
   validateRequest(authValidation.registrationValidationSchema),
   authControllers.registerNewUser
 );
+route.post(
+  "/change-password",
+  validateRequest(authValidation.changePasswordSchema),
+  authControllers.changePasswordWithOldPassword
+);
 
 export const authRoute = route;

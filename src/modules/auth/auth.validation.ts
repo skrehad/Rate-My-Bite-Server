@@ -19,7 +19,20 @@ const registrationValidationSchema = z.object({
   }),
 });
 
+const changePasswordSchema = z.object({
+  body: z.object({
+    oldPassword: z
+      .string({ required_error: "Old Password is required" })
+      .min(6, "Password must be at least 6 characters"),
+    newPassword: z
+      .string({ required_error: "New Password is required" })
+      .min(6, "Password must be at least 6 characters"),
+    email: z.string({ required_error: "Email is required" }),
+  }),
+});
+
 export const authValidation = {
   loginValidationSchema,
   registrationValidationSchema,
+  changePasswordSchema,
 };
