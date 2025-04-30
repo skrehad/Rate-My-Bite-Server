@@ -5,6 +5,8 @@ import prisma from "../../utils/prismaProvider";
 import { bcryptHelper } from "../../utils/bcryptHelper";
 import { jwtHelper } from "../../utils/jwtHelper";
 import config from "../../config";
+import sendEmail from "../../utils/sendEmail";
+import { JwtPayload } from "jsonwebtoken";
 
 const loginUser = async (payload: Partial<User>) => {
   const isUserExist = await prisma.user.findUnique({
@@ -99,8 +101,59 @@ const changePasswordWithOldPassword = async (payload: {
   return result;
 };
 
+const generateForgetPasswordLink = async (payload: { email: string }) => {
+  const isUserExist = await prisma.user.findUnique({
+    where: { email: payload?.email },
+  });
+  if (!isUserExist) {
+    throw new AppError(status.NOT_FOUND, "User does not exist");
+  }
+  const jwtData = {
+    email: isUserExist?.email,
+    status: isUserExist?.status,
+    role: isUserExist?.role,
+  };
+  const resetToken = jwtHelper.generateToken(
+    jwtData,
+    config.reset_secret_key as string,
+    config.reset_expires_in as string
+  );
+  console.log({ resetToken, email: isUserExist?.email });
+  const resetLink = `${config.website_url}/reset-password?email=${isUserExist?.email}&token=${resetToken}`;
+  await sendEmail(isUserExist?.email, resetLink);
+  return null;
+};
+
+const resetPassword = async (payload: {
+  email: string;
+  token: string;
+  newPassword: string;
+}) => {
+  const isUserExist = await prisma.user.findUnique({
+    where: { email: payload?.email },
+  });
+  if (!isUserExist) {
+    throw new AppError(status.NOT_FOUND, "User does not exist");
+  }
+  const decodedToken = jwtHelper.decodedToken(
+    payload?.token,
+    config.reset_secret_key as string
+  ) as JwtPayload;
+  if (decodedToken?.email !== payload?.email) {
+    throw new AppError(status.BAD_REQUEST, "Invalid token");
+  }
+  const hashedPassword = await bcryptHelper.hashPassword(payload?.newPassword);
+  const result = await prisma.user.update({
+    where: { email: payload?.email },
+    data: { password: hashedPassword },
+  });
+  return result;
+};
+
 export const authServices = {
   loginUser,
   registerNewUser,
   changePasswordWithOldPassword,
+  generateForgetPasswordLink,
+  resetPassword,
 };

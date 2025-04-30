@@ -2,9 +2,10 @@ import status from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { postServices } from "./post.service";
+import pick from "../../utils/pick";
 
 const createPost = catchAsync(async (req, res) => {
-  const result = await postServices.createPost(req.body);
+  const result = await postServices.createPost(req);
   sendResponse(res, {
     statusCode: status.CREATED,
     success: true,
@@ -14,7 +15,9 @@ const createPost = catchAsync(async (req, res) => {
 });
 
 const getAllPost = catchAsync(async (req, res) => {
-  const result = await postServices.getAllPost();
+  const searchQuery = pick(req.query, ["searchTerm", "category", "title"]);
+  // console.log({ searchQuery });
+  const result = await postServices.getAllPost(searchQuery);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
