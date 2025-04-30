@@ -13,8 +13,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}
+enum UserRole {
+  USER
+  PREMIUM
+  ADMIN
+}
 
-model User{
+enum PostStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+
+
+model User {
   id String @id @default(uuid())
   fullName String?
   email String @unique
@@ -22,17 +40,49 @@ model User{
   role UserRole @default(USER)
   status UserStatus @default(ACTIVE)
   isDeleted Boolean @default(false)
-  isPremium Boolean @default(false)
-  createAt DateTime @default(now())
+  posts Post[]
+  comments Comment[]
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum UserStatus {
-  ACTIVE
-  BLOCKED
-  DELETED
+model Category {
+  id String @id @default(uuid())
+  name String @unique
+  posts Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-enum UserRole {
-  ADMIN
-  USER
+
+model Post {
+  id            String @id @default(uuid())
+  title         String
+  description   String
+  location      String
+  image         String
+  priceRange    String       // e.g. "Low", "Medium", "High"
+  isPremium     Boolean      @default(false)
+  status        PostStatus   @default(PENDING)
+  categoryId    String
+  category      Category @relation(fields: [categoryId], references: [id])
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
+  comments      Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  userId    String
+  postId    String
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+

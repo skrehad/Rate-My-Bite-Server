@@ -128,8 +128,38 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  image: 'image',
+  priceRange: 'priceRange',
   isPremium: 'isPremium',
-  createAt: 'createAt',
+  status: 'status',
+  categoryId: 'categoryId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -148,8 +178,9 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.UserRole = exports.$Enums.UserRole = {
-  ADMIN: 'ADMIN',
-  USER: 'USER'
+  USER: 'USER',
+  PREMIUM: 'PREMIUM',
+  ADMIN: 'ADMIN'
 };
 
 exports.UserStatus = exports.$Enums.UserStatus = {
@@ -158,8 +189,17 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   DELETED: 'DELETED'
 };
 
+exports.PostStatus = exports.$Enums.PostStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Category: 'Category',
+  Post: 'Post',
+  Comment: 'Comment'
 };
 
 /**
