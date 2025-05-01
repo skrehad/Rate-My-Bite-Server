@@ -3,6 +3,8 @@ import { Post, PostStatus, Prisma, UserRole } from "../../../generated/prisma";
 import config from "../../config";
 import { jwtHelper } from "../../utils/jwtHelper";
 import prisma from "../../utils/prismaProvider";
+import AppError from "../../errors/AppError";
+import status from "http-status";
 
 const createPost = async (payload: Post) => {
   // const payload = req.body as Post;
@@ -138,18 +140,31 @@ const getSinglePost = async (id: string) => {
   const result = await prisma.post.findUnique({
     where: {
       id,
+      status: PostStatus.APPROVED,
     },
   });
+  if (!result) {
+    throw new AppError(status.NOT_FOUND, "Post not found");
+  }
   return result;
 };
 
 const updatePost = async (id: string, payload: Partial<Post>) => {
+  const isPostExist = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!isPostExist) {
+    throw new AppError(status.NOT_FOUND, "Post not found");
+  }
   const result = await prisma.post.update({
     where: {
       id,
     },
     data: payload,
   });
+
   return result;
 };
 

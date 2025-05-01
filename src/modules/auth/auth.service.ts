@@ -150,10 +150,18 @@ const resetPassword = async (payload: {
   return result;
 };
 
+const getMe = async (jwtData: JwtPayload) => {
+  const result = await prisma.user.findUnique({
+    where: { email: jwtData?.email },
+  });
+  return result;
+};
+
 export const authServices = {
   loginUser,
   registerNewUser,
   changePasswordWithOldPassword,
   generateForgetPasswordLink,
   resetPassword,
+  getMe,
 };
