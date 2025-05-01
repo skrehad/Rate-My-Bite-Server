@@ -75,12 +75,12 @@ export const PostStatus: {
 export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
 
 
-export const voteStatus: {
-  upvote: 'upvote',
-  downvote: 'downvote'
+export const VoteStatus: {
+  UPVOTE: 'UPVOTE',
+  DOWNVOTE: 'DOWNVOTE'
 };
 
-export type voteStatus = (typeof voteStatus)[keyof typeof voteStatus]
+export type VoteStatus = (typeof VoteStatus)[keyof typeof VoteStatus]
 
 }
 
@@ -96,9 +96,9 @@ export type PostStatus = $Enums.PostStatus
 
 export const PostStatus: typeof $Enums.PostStatus
 
-export type voteStatus = $Enums.voteStatus
+export type VoteStatus = $Enums.VoteStatus
 
-export const voteStatus: typeof $Enums.voteStatus
+export const VoteStatus: typeof $Enums.VoteStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -7274,7 +7274,7 @@ export namespace Prisma {
 
   export type VoteMinAggregateOutputType = {
     id: string | null
-    status: $Enums.voteStatus | null
+    status: $Enums.VoteStatus | null
     userId: string | null
     postId: string | null
     createdAt: Date | null
@@ -7283,7 +7283,7 @@ export namespace Prisma {
 
   export type VoteMaxAggregateOutputType = {
     id: string | null
-    status: $Enums.voteStatus | null
+    status: $Enums.VoteStatus | null
     userId: string | null
     postId: string | null
     createdAt: Date | null
@@ -7403,7 +7403,7 @@ export namespace Prisma {
 
   export type VoteGroupByOutputType = {
     id: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     userId: string
     postId: string
     createdAt: Date
@@ -7491,7 +7491,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      status: $Enums.voteStatus
+      status: $Enums.VoteStatus
       userId: string
       postId: string
       createdAt: Date
@@ -7922,7 +7922,7 @@ export namespace Prisma {
    */
   interface VoteFieldRefs {
     readonly id: FieldRef<"Vote", 'String'>
-    readonly status: FieldRef<"Vote", 'voteStatus'>
+    readonly status: FieldRef<"Vote", 'VoteStatus'>
     readonly userId: FieldRef<"Vote", 'String'>
     readonly postId: FieldRef<"Vote", 'String'>
     readonly createdAt: FieldRef<"Vote", 'DateTime'>
@@ -8570,16 +8570,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'voteStatus'
+   * Reference to a field of type 'VoteStatus'
    */
-  export type EnumvoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'voteStatus'>
+  export type EnumVoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoteStatus'>
     
 
 
   /**
-   * Reference to a field of type 'voteStatus[]'
+   * Reference to a field of type 'VoteStatus[]'
    */
-  export type ListEnumvoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'voteStatus[]'>
+  export type ListEnumVoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VoteStatus[]'>
     
   /**
    * Deep Input Types
@@ -8962,7 +8962,7 @@ export namespace Prisma {
     OR?: VoteWhereInput[]
     NOT?: VoteWhereInput | VoteWhereInput[]
     id?: StringFilter<"Vote"> | string
-    status?: EnumvoteStatusFilter<"Vote"> | $Enums.voteStatus
+    status?: EnumVoteStatusFilter<"Vote"> | $Enums.VoteStatus
     userId?: StringFilter<"Vote"> | string
     postId?: StringFilter<"Vote"> | string
     createdAt?: DateTimeFilter<"Vote"> | Date | string
@@ -8987,7 +8987,7 @@ export namespace Prisma {
     AND?: VoteWhereInput | VoteWhereInput[]
     OR?: VoteWhereInput[]
     NOT?: VoteWhereInput | VoteWhereInput[]
-    status?: EnumvoteStatusFilter<"Vote"> | $Enums.voteStatus
+    status?: EnumVoteStatusFilter<"Vote"> | $Enums.VoteStatus
     userId?: StringFilter<"Vote"> | string
     postId?: StringFilter<"Vote"> | string
     createdAt?: DateTimeFilter<"Vote"> | Date | string
@@ -9013,7 +9013,7 @@ export namespace Prisma {
     OR?: VoteScalarWhereWithAggregatesInput[]
     NOT?: VoteScalarWhereWithAggregatesInput | VoteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Vote"> | string
-    status?: EnumvoteStatusWithAggregatesFilter<"Vote"> | $Enums.voteStatus
+    status?: EnumVoteStatusWithAggregatesFilter<"Vote"> | $Enums.VoteStatus
     userId?: StringWithAggregatesFilter<"Vote"> | string
     postId?: StringWithAggregatesFilter<"Vote"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Vote"> | Date | string
@@ -9419,7 +9419,7 @@ export namespace Prisma {
 
   export type VoteCreateInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutVotesInput
@@ -9428,7 +9428,7 @@ export namespace Prisma {
 
   export type VoteUncheckedCreateInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     userId: string
     postId: string
     createdAt?: Date | string
@@ -9437,7 +9437,7 @@ export namespace Prisma {
 
   export type VoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutVotesNestedInput
@@ -9446,7 +9446,7 @@ export namespace Prisma {
 
   export type VoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     userId?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9455,7 +9455,7 @@ export namespace Prisma {
 
   export type VoteCreateManyInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     userId: string
     postId: string
     createdAt?: Date | string
@@ -9464,14 +9464,14 @@ export namespace Prisma {
 
   export type VoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     userId?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9922,11 +9922,11 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumvoteStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.voteStatus | EnumvoteStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumvoteStatusFilter<$PrismaModel> | $Enums.voteStatus
+  export type EnumVoteStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteStatus | EnumVoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteStatusFilter<$PrismaModel> | $Enums.VoteStatus
   }
 
   export type VoteCountOrderByAggregateInput = {
@@ -9956,14 +9956,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type EnumvoteStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.voteStatus | EnumvoteStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumvoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.voteStatus
+  export type EnumVoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteStatus | EnumVoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.VoteStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumvoteStatusFilter<$PrismaModel>
-    _max?: NestedEnumvoteStatusFilter<$PrismaModel>
+    _min?: NestedEnumVoteStatusFilter<$PrismaModel>
+    _max?: NestedEnumVoteStatusFilter<$PrismaModel>
   }
 
   export type PostCreateNestedManyWithoutUserInput = {
@@ -10442,8 +10442,8 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput
   }
 
-  export type EnumvoteStatusFieldUpdateOperationsInput = {
-    set?: $Enums.voteStatus
+  export type EnumVoteStatusFieldUpdateOperationsInput = {
+    set?: $Enums.VoteStatus
   }
 
   export type UserUpdateOneRequiredWithoutVotesNestedInput = {
@@ -10678,21 +10678,21 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedEnumvoteStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.voteStatus | EnumvoteStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumvoteStatusFilter<$PrismaModel> | $Enums.voteStatus
+  export type NestedEnumVoteStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteStatus | EnumVoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteStatusFilter<$PrismaModel> | $Enums.VoteStatus
   }
 
-  export type NestedEnumvoteStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.voteStatus | EnumvoteStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.voteStatus[] | ListEnumvoteStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumvoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.voteStatus
+  export type NestedEnumVoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VoteStatus | EnumVoteStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VoteStatus[] | ListEnumVoteStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.VoteStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumvoteStatusFilter<$PrismaModel>
-    _max?: NestedEnumvoteStatusFilter<$PrismaModel>
+    _min?: NestedEnumVoteStatusFilter<$PrismaModel>
+    _max?: NestedEnumVoteStatusFilter<$PrismaModel>
   }
 
   export type PostCreateWithoutUserInput = {
@@ -10795,7 +10795,7 @@ export namespace Prisma {
 
   export type VoteCreateWithoutUserInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     post: PostCreateNestedOneWithoutVotesInput
@@ -10803,7 +10803,7 @@ export namespace Prisma {
 
   export type VoteUncheckedCreateWithoutUserInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     postId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10931,7 +10931,7 @@ export namespace Prisma {
     OR?: VoteScalarWhereInput[]
     NOT?: VoteScalarWhereInput | VoteScalarWhereInput[]
     id?: StringFilter<"Vote"> | string
-    status?: EnumvoteStatusFilter<"Vote"> | $Enums.voteStatus
+    status?: EnumVoteStatusFilter<"Vote"> | $Enums.VoteStatus
     userId?: StringFilter<"Vote"> | string
     postId?: StringFilter<"Vote"> | string
     createdAt?: DateTimeFilter<"Vote"> | Date | string
@@ -11108,7 +11108,7 @@ export namespace Prisma {
 
   export type VoteCreateWithoutPostInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutVotesInput
@@ -11116,7 +11116,7 @@ export namespace Prisma {
 
   export type VoteUncheckedCreateWithoutPostInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11771,7 +11771,7 @@ export namespace Prisma {
 
   export type VoteCreateManyUserInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     postId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11878,7 +11878,7 @@ export namespace Prisma {
 
   export type VoteUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostUpdateOneRequiredWithoutVotesNestedInput
@@ -11886,7 +11886,7 @@ export namespace Prisma {
 
   export type VoteUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     postId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11894,7 +11894,7 @@ export namespace Prisma {
 
   export type VoteUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     postId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11984,7 +11984,7 @@ export namespace Prisma {
 
   export type VoteCreateManyPostInput = {
     id?: string
-    status: $Enums.voteStatus
+    status: $Enums.VoteStatus
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12040,7 +12040,7 @@ export namespace Prisma {
 
   export type VoteUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutVotesNestedInput
@@ -12048,7 +12048,7 @@ export namespace Prisma {
 
   export type VoteUncheckedUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12056,7 +12056,7 @@ export namespace Prisma {
 
   export type VoteUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumvoteStatusFieldUpdateOperationsInput | $Enums.voteStatus
+    status?: EnumVoteStatusFieldUpdateOperationsInput | $Enums.VoteStatus
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

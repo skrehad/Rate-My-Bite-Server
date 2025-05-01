@@ -3,9 +3,10 @@ import { authRoute } from "../modules/auth/auth.route";
 import { categoryRoute } from "../modules/category/category.route";
 import { postRoute } from "../modules/post/post.route";
 import { adminRoute } from "../modules/admin/admin.route";
+import { userRoute } from "../modules/user/user.route";
 import { ratingRoutes } from "../modules/Rating/rating.routes";
 import { voteRoutes } from "../modules/Vote/vote.route";
-import { commentRoutes } from "../modules/Commit/commit.routes";
+import { commentRoutes } from "../modules/Comment/commit.routes";
 
 const route = Router();
 const modules = [
@@ -13,10 +14,10 @@ const modules = [
   { path: "/category", route: categoryRoute },
   { path: "/post", route: postRoute },
   { path: "/admin", route: adminRoute },
-
-  {path: "/rating", route: ratingRoutes},
-  {path: "/vote", route: voteRoutes},
-  {path:"/comment",route:commentRoutes}
+  { path: "/user", route: userRoute },
+  { path: "/rating", route: ratingRoutes },
+  { path: "/vote", route: voteRoutes },
+  {path:"/comments",route:commentRoutes}
 ];
 
 

@@ -8,12 +8,12 @@ import { commentService } from "./commit.service";
 
 /* 
 -----------------------**************-------------
-                      ceate rating
+                      ceate comment
 -----------------------***************----------
 */
 const createCommentIntoDB = catchAsync(async (req: Request , res: Response) => {
   
-   const result = await commentService.createComment( req.body);
+   const result = await commentService.createComment(req.body);
 
    sendResponse(res, {
       success: true,
@@ -25,7 +25,7 @@ const createCommentIntoDB = catchAsync(async (req: Request , res: Response) => {
 // ---------get all
 const getAllComment= catchAsync(async (req: Request , res: Response) => {
   
-   const result = await commentService.getAllComment;
+   const result = await commentService.getAllComment();
 
    sendResponse(res, {
       success: true,
@@ -35,7 +35,7 @@ const getAllComment= catchAsync(async (req: Request , res: Response) => {
    });
 });
 // ------------------get single------------
-const getSinglebyId= catchAsync(async (req: Request , res: Response) => {
+const getSingleCommentbyId= catchAsync(async (req: Request , res: Response) => {
   
    const {id}=req.params;
    const result=await commentService.getCommentId(id);
@@ -43,7 +43,7 @@ const getSinglebyId= catchAsync(async (req: Request , res: Response) => {
    sendResponse(res, {
       success: true,
       statusCode: status.OK,
-      message: "Rating get id successfully",
+      message: "comment get id successfully",
       data: result
    });
 });
@@ -61,7 +61,7 @@ const getSinglebyId= catchAsync(async (req: Request , res: Response) => {
 // });
 
 export const commentController={
-    getSinglebyId,
+   getSingleCommentbyId,
    getAllComment,
    createCommentIntoDB
 }
