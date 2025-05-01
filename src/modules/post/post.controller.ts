@@ -5,7 +5,7 @@ import { postServices } from "./post.service";
 import pick from "../../utils/pick";
 
 const createPost = catchAsync(async (req, res) => {
-  const result = await postServices.createPost(req);
+  const result = await postServices.createPost(req.body);
   sendResponse(res, {
     statusCode: status.CREATED,
     success: true,
@@ -13,16 +13,40 @@ const createPost = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createMany = catchAsync(async (req, res) => {
+  const result = await postServices.createMany(req.body);
+  sendResponse(res, {
+    statusCode: status.CREATED,
+    success: true,
+    message: "Posts created successfully",
+    data: result,
+  });
+});
 
 const getAllPost = catchAsync(async (req, res) => {
-  const searchQuery = pick(req.query, ["searchTerm", "category", "title"]);
-  // console.log({ searchQuery });
-  const result = await postServices.getAllPost(searchQuery);
+  const token = req.headers?.authorization!;
+
+  const searchQuery = pick(req.query, [
+    "searchTerm",
+    "category",
+    "title",
+    "location",
+    "priceRange",
+  ]);
+  const paginateQuery = pick(req.query, ["page", "limit"]);
+  const priceQuery = pick(req.query, ["minPrice", "maxPrice"]);
+  const result = await postServices.getAllPost(
+    searchQuery,
+    paginateQuery,
+    priceQuery,
+    token
+  );
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
     message: "Posts retrived successfully",
-    data: result,
+    data: result?.data,
+    meta: result?.meta,
   });
 });
 
@@ -36,9 +60,33 @@ const getSinglePost = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllPostByAdmin = catchAsync(async (req, res) => {
+  const paginateQuery = pick(req.query, ["page", "limit"]);
+  const result = await postServices.getAllPostByAdmin(paginateQuery);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Posts retrived successfully",
+    data: result?.data,
+    meta: result?.meta,
+  });
+});
+const updatePost = catchAsync(async (req, res) => {
+  const { postId } = req.params;
+  const result = await postServices.updatePost(postId, req.body);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Post updated successfully",
+    data: result,
+  });
+});
 
 export const postControllers = {
   createPost,
+  createMany,
   getAllPost,
   getSinglePost,
+  updatePost,
+  getAllPostByAdmin,
 };

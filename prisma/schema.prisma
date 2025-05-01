@@ -60,6 +60,7 @@ model Post {
   description   String
   location      String
   image         String
+  price         Float @default(100)
   priceRange    String       // e.g. "Low", "Medium", "High"
   isPremium     Boolean      @default(false)
   status        PostStatus   @default(PENDING)

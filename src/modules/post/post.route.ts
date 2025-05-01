@@ -1,19 +1,38 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Router } from "express";
 import { postControllers } from "./post.controller";
-import { upload } from "../../middlewares/multerUpload";
-
+import validateRequest from "../../utils/validateRequest";
+import { postValidation } from "./post.validation";
+import auth from "../../middlewares/auth";
+import { UserRole } from "../../../generated/prisma";
 const route = Router();
 
+// route.post(
+//   "/",
+//   upload.single("file"),
+//   (req: Request, _res: Response, next: NextFunction) => {
+//     req.body = JSON.parse(req?.body?.data);
+//     next();
+//   },
+//   postControllers.createPost
+// );
 route.post(
   "/",
-  upload.single("file"),
-  (req: Request, _res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req?.body?.data);
-    next();
-  },
+  validateRequest(postValidation.postSchema),
   postControllers.createPost
+);
+route.post(
+  "/many",
+  validateRequest(postValidation.manyPostSchema),
+  postControllers.createMany
 );
 route.get("/", postControllers.getAllPost);
 route.get("/:postId", postControllers.getSinglePost);
+// Admin routes
+route.get("/admin", auth(UserRole.ADMIN), postControllers.getAllPostByAdmin);
+route.patch(
+  "/:postId/update-status",
+  auth(UserRole.ADMIN),
+  postControllers.updatePost
+);
 
 export const postRoute = route;

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import status from "http-status";
+import { ZodError } from "zod";
 
 const globalErrorHandler = (
   err: any,
@@ -7,8 +8,11 @@ const globalErrorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  const message = err?.message || "Something went wrong";
+  let message = err?.message || "Something went wrong";
   const statusCode = err?.statusCode || status.INTERNAL_SERVER_ERROR;
+  if (err instanceof ZodError) {
+    message = err.issues[0].message;
+  }
   res.status(statusCode).json({
     success: false,
     message,

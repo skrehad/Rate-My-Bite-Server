@@ -1,32 +1,39 @@
+// import { UserRole } from "@prisma/client";
+// import AppError from "../modules/error/AppError";
+import jwt, { JwtPayload } from "jsonwebtoken";
+// import { config } from "../config";
 import { NextFunction, Request, Response } from "express";
 import { UserRole } from "../../generated/prisma";
 import AppError from "../errors/AppError";
-import status from "http-status";
-import { jwtHelper } from "../utils/jwtHelper";
 import config from "../config";
-import { JwtPayload } from "jsonwebtoken";
+
+// Extend the Request interface to include the user property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
+    }
+  }
+}
 
 const auth = (...roles: UserRole[]) => {
-  return async (
-    req: Request & { user: JwtPayload },
-    _res: Response,
-    next: NextFunction
-  ) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers?.authorization;
     if (!token) {
-      throw new AppError(status.UNAUTHORIZED, "You are not authorized");
+      throw new AppError(403, "Unauthorized access");
     }
-    const decoded = jwtHelper.decodedToken(
+    const decoded = jwt.verify(
       token,
       config.jwt_access_secret as string
-    );
+    ) as JwtPayload;
+
     if (!decoded) {
-      throw new AppError(status.UNAUTHORIZED, "You are not authorized");
+      throw new AppError(403, "Unauthorized access");
     }
-    if (!roles.includes((decoded as JwtPayload)?.role as UserRole)) {
-      throw new AppError(status.UNAUTHORIZED, "You are not authorized");
+    if (roles.length !== 0 && !roles.includes(decoded?.role as UserRole)) {
+      throw new AppError(403, "Forbidden access");
     } else {
-      req.user = decoded as JwtPayload;
+      req.user = decoded;
       next();
     }
   };
