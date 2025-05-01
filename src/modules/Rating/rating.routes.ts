@@ -1,14 +1,10 @@
-import express from 'express';
-import { ratingController } from './rating.controller';
+import express from "express";
+import { ratingController } from "./rating.controller";
 
+const router = express.Router();
 
-
-
-const router=express.Router();
-
-
-router.get("/",ratingController.getAllRating);
-router.get("/:id",ratingController.getSingleRating);
+router.get("/", ratingController.getAllRating);
+router.get("/:ratingId", ratingController.getSingleRating);
 router.post("/", ratingController.createRatingIntoDB);
 
-export const ratingRoutes=router;
+export const ratingRoutes = router;

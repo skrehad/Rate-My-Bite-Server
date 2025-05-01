@@ -26,9 +26,9 @@ route.post(
   postControllers.createMany
 );
 route.get("/", postControllers.getAllPost);
-route.get("/:postId", postControllers.getSinglePost);
-// Admin routes
 route.get("/admin", auth(UserRole.ADMIN), postControllers.getAllPostByAdmin);
+route.get("/:postId", postControllers.getSinglePost);
+
 route.patch(
   "/:postId/update-status",
   auth(UserRole.ADMIN),

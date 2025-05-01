@@ -214,9 +214,9 @@ exports.PostStatus = exports.$Enums.PostStatus = {
   REJECTED: 'REJECTED'
 };
 
-exports.voteStatus = exports.$Enums.voteStatus = {
-  upvote: 'upvote',
-  downvote: 'downvote'
+exports.VoteStatus = exports.$Enums.VoteStatus = {
+  UPVOTE: 'UPVOTE',
+  DOWNVOTE: 'DOWNVOTE'
 };
 
 exports.Prisma.ModelName = {
