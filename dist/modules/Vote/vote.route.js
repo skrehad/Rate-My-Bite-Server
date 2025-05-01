@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.voteRoutes = void 0;
+const express_1 = require("express");
+const vote_controller_1 = require("./vote.controller");
+const route = (0, express_1.Router)();
+route.get("/", vote_controller_1.voteControllers.getAllVote);
+route.get("/:id", vote_controller_1.voteControllers.getSingleVote);
+route.post("/", vote_controller_1.voteControllers.createVote);
+exports.voteRoutes = route;

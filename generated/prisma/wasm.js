@@ -164,6 +164,24 @@ exports.Prisma.CommentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RatingScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VoteScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  userId: 'userId',
+  postId: 'postId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -196,11 +214,18 @@ exports.PostStatus = exports.$Enums.PostStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.voteStatus = exports.$Enums.voteStatus = {
+  upvote: 'upvote',
+  downvote: 'downvote'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Category: 'Category',
   Post: 'Post',
-  Comment: 'Comment'
+  Comment: 'Comment',
+  Rating: 'Rating',
+  Vote: 'Vote'
 };
 
 /**
