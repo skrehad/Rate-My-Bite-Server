@@ -14,7 +14,7 @@ const modules = [
   { path: "/admin", route: adminRoute },
 
   {path: "/rating", route: ratingRoutes},
-  {path: "/voting", route: voteRoutes},
+  {path: "/vote", route: voteRoutes},
 ];
 
 modules.forEach((module) => {
