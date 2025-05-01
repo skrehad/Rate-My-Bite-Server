@@ -1,7 +1,4 @@
-// import { UserRole } from "@prisma/client";
-// import AppError from "../modules/error/AppError";
 import jwt, { JwtPayload } from "jsonwebtoken";
-// import { config } from "../config";
 import { NextFunction, Request, Response } from "express";
 import { UserRole } from "../../generated/prisma";
 import AppError from "../errors/AppError";
@@ -30,7 +27,7 @@ const auth = (...roles: UserRole[]) => {
     if (!decoded) {
       throw new AppError(403, "Unauthorized access");
     }
-    if (roles.length !== 0 && !roles.includes(decoded?.role as UserRole)) {
+    if (roles.length > 0 && !roles.includes(decoded?.role as UserRole)) {
       throw new AppError(403, "Forbidden access");
     } else {
       req.user = decoded;

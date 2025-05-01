@@ -1,32 +1,43 @@
-import {  Vote } from "../../../generated/prisma";
+import { Vote } from "../../../generated/prisma";
 import prisma from "../../utils/prismaProvider";
 
-const createVote= async (payload: Vote) => {
-  const result = await prisma.vote.create({
-    data: {
-      status: payload.status,
-      user: { connect: { id: payload.userId } }, 
-      post: { connect: { id: payload.postId } }
+const createVote = async (payload: Vote) => {
+  const isVoteExist = await prisma.vote.findFirst({
+    where: {
+      userId: payload.userId,
+      postId: payload.postId,
     },
   });
-  return result;
+  if (isVoteExist) {
+    const result = await prisma.vote.update({
+      where: {
+        id: isVoteExist.id,
+      },
+      data: {
+        status: payload?.status,
+      },
+    });
+    return result;
+  } else {
+    const result = await prisma.vote.create({
+      data: payload,
+    });
+    return result;
+  }
 };
 
-// ---------all vote-------
 const getAllVote = async () => {
   const result = await prisma.vote.findMany({});
   return result;
 };
-
-// ----------get single vote----------
-const getSingleVote=async(id:string)=>{
-  const result=await prisma.vote.findUniqueOrThrow({
-    where:{id}
+const getSingleVote = async (id: string) => {
+  const result = await prisma.vote.findUniqueOrThrow({
+    where: { id },
   });
   return result;
-}
+};
 export const voteServices = {
   createVote,
   getAllVote,
-  getSingleVote
+  getSingleVote,
 };

@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
-import { Post, Prisma, UserRole } from "../../../generated/prisma";
+import { Post, PostStatus, Prisma, UserRole } from "../../../generated/prisma";
 import config from "../../config";
 import { jwtHelper } from "../../utils/jwtHelper";
 import prisma from "../../utils/prismaProvider";
@@ -30,7 +30,11 @@ const getAllPost = async (
   priceQuery: Record<string, unknown>,
   token: string = ""
 ) => {
-  const queryCondition: Prisma.PostWhereInput[] = [];
+  const queryCondition: Prisma.PostWhereInput[] = [
+    {
+      status: PostStatus.APPROVED,
+    },
+  ];
   if (token) {
     const decodedToken = jwtHelper.decodedToken(
       token,
@@ -50,7 +54,7 @@ const getAllPost = async (
   }
 
   const { searchTerm, ...fieldsValues } = query;
-  const { page = 1, limit = 5 } = paginateQuery;
+  const { page = 1, limit = 10 } = paginateQuery;
   const { minPrice = 0, maxPrice = 1000000 } = priceQuery;
   if (searchTerm) {
     queryCondition.push({
@@ -116,6 +120,7 @@ const getAllPost = async (
 const getAllPostByAdmin = async (paginateQuery: Record<string, unknown>) => {
   const { page = 1, limit = 10 } = paginateQuery;
   const skip = (Number(page) - 1) * Number(limit);
+  console.log({ page, limit, skip });
   const result = await prisma.post.findMany({
     take: Number(limit),
     skip,

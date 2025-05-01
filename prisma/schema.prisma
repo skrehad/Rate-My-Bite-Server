@@ -102,7 +102,7 @@ model Rating{
 
 model Vote{
    id  String   @id @default(uuid())
-   status voteStatus
+   status VoteStatus
    userId String
    postId String
    user      User       @relation(fields: [userId], references: [id])
@@ -111,8 +111,8 @@ model Vote{
    updatedAt DateTime @updatedAt
 }
 
-enum voteStatus{
-  upvote
-  downvote
+enum VoteStatus {
+  UPVOTE
+  DOWNVOTE
 }
 
