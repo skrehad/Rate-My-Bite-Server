@@ -5,16 +5,6 @@ import { postValidation } from "./post.validation";
 import auth from "../../middlewares/auth";
 import { UserRole } from "../../../generated/prisma";
 const route = Router();
-
-// route.post(
-//   "/",
-//   upload.single("file"),
-//   (req: Request, _res: Response, next: NextFunction) => {
-//     req.body = JSON.parse(req?.body?.data);
-//     next();
-//   },
-//   postControllers.createPost
-// );
 route.post(
   "/",
   validateRequest(postValidation.postSchema),

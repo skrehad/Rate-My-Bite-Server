@@ -49,6 +49,15 @@ const resetPassword = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMe = catchAsync(async (req, res) => {
+  const result = await authServices.getMe(req.user!);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "User retrived successfully",
+    data: result,
+  });
+});
 
 export const authControllers = {
   loginUser,
@@ -56,4 +65,5 @@ export const authControllers = {
   changePasswordWithOldPassword,
   forgetPassword,
   resetPassword,
+  getMe,
 };
