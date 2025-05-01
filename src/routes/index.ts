@@ -5,6 +5,7 @@ import { postRoute } from "../modules/post/post.route";
 import { adminRoute } from "../modules/admin/admin.route";
 import { ratingRoutes } from "../modules/Rating/rating.routes";
 import { voteRoutes } from "../modules/Vote/vote.route";
+import { commentRoutes } from "../modules/Commit/commit.routes";
 
 const route = Router();
 const modules = [
@@ -15,7 +16,9 @@ const modules = [
 
   {path: "/rating", route: ratingRoutes},
   {path: "/vote", route: voteRoutes},
+  {path:"/comment",route:commentRoutes}
 ];
+
 
 modules.forEach((module) => {
   route.use(module.path, module.route);
