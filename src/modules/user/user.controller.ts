@@ -2,14 +2,17 @@ import status from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { userServices } from "./user.service";
+import pick from "../../utils/pick";
 
 const getAllUser = catchAsync(async (req, res) => {
-  const result = await userServices.getAllUser();
+  const paginateQuery = pick(req.query, ["page", "limit"]);
+  const result = await userServices.getAllUser(paginateQuery);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
     message: "Users retrived successfully",
-    data: result,
+    data: result.data,
+    meta: result.meta,
   });
 });
 const getSingleUser = catchAsync(async (req, res) => {

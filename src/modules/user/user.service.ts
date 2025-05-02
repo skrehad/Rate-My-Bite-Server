@@ -1,15 +1,39 @@
 import { User } from "../../../generated/prisma";
 import prisma from "../../utils/prismaProvider";
 
-const getAllUser = async () => {
-  const result = await prisma.user.findMany({});
-  return result;
+const getAllUser = async (paginateQuery: Record<string, unknown>) => {
+  const { page = 1, limit = 10 } = paginateQuery;
+  const skip = (Number(page) - 1) * Number(limit);
+  const result = await prisma.user.findMany({
+    take: Number(limit),
+    skip,
+    include: {
+      comments: true,
+      votes: true,
+      ratings: true,
+      posts: true,
+    },
+  });
+  return {
+    data: result,
+    meta: {
+      total: await prisma.user.count({}),
+      page: Number(page),
+      limit: Number(limit),
+    },
+  };
 };
 
 const getSingleUser = async (id: string) => {
   const result = await prisma.user.findUnique({
     where: {
       id,
+    },
+    include: {
+      comments: true,
+      votes: true,
+      ratings: true,
+      posts: true,
     },
   });
   return result;
@@ -21,6 +45,12 @@ const updateUser = async (id: string, payload: Partial<User>) => {
       id,
     },
     data: payload,
+    include: {
+      comments: true,
+      votes: true,
+      ratings: true,
+      posts: true,
+    },
   });
   return result;
 };

@@ -108,6 +108,12 @@ const getAllPost = async (
     where: whereCondition,
     take: Number(limit),
     skip,
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+    },
   });
   return {
     data: result,
@@ -126,6 +132,12 @@ const getAllPostByAdmin = async (paginateQuery: Record<string, unknown>) => {
   const result = await prisma.post.findMany({
     take: Number(limit),
     skip,
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+    },
   });
   return {
     data: result,
@@ -141,6 +153,12 @@ const getSinglePost = async (id: string) => {
     where: {
       id,
       status: PostStatus.APPROVED,
+    },
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
     },
   });
   if (!result) {
@@ -163,6 +181,12 @@ const updatePost = async (id: string, payload: Partial<Post>) => {
       id,
     },
     data: payload,
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+    },
   });
 
   return result;
