@@ -19,7 +19,8 @@ route.post(
 );
 route.post(
   "/change-password",
-  validateRequest(authValidation.changePasswordSchema),
+  // validateRequest(authValidation.changePasswordSchema),
+
   authControllers.changePasswordWithOldPassword
 );
 route.post(
@@ -37,5 +38,6 @@ route.get(
   auth(UserRole.ADMIN, UserRole.PREMIUM, UserRole.USER),
   authControllers.getMe
 );
+route.post("/generate-access-token", authControllers.generateAccessToken);
 
 export const authRoute = route;

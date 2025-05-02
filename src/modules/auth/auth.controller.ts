@@ -22,6 +22,7 @@ const registerNewUser = catchAsync(async (req, res) => {
   });
 });
 const changePasswordWithOldPassword = catchAsync(async (req, res) => {
+  console.log({ req: req.body });
   const result = await authServices.changePasswordWithOldPassword(req.body);
   sendResponse(res, {
     statusCode: status.OK,
@@ -58,6 +59,16 @@ const getMe = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const generateAccessToken = catchAsync(async (req, res) => {
+  const token = req.headers?.authorization!;
+  const result = await authServices.generateAccessToken(token);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Access token generated successfully",
+    data: result,
+  });
+});
 
 export const authControllers = {
   loginUser,
@@ -66,4 +77,5 @@ export const authControllers = {
   forgetPassword,
   resetPassword,
   getMe,
+  generateAccessToken,
 };
