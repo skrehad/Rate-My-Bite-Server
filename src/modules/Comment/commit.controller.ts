@@ -30,7 +30,7 @@ const getAllComment= catchAsync(async (req: Request , res: Response) => {
    sendResponse(res, {
       success: true,
       statusCode: status.OK,
-      message: "Comment get successfully",
+      message: "Comment getd successfully",
       data: result
    });
 });
