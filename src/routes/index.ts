@@ -6,7 +6,7 @@ import { adminRoute } from "../modules/admin/admin.route";
 import { userRoute } from "../modules/user/user.route";
 import { ratingRoutes } from "../modules/Rating/rating.routes";
 import { voteRoutes } from "../modules/Vote/vote.route";
-import { commentRoutes } from "../modules/Comment/commit.routes";
+import { commentRoutes } from "../modules/comment/comment.routes";
 
 const route = Router();
 const modules = [
@@ -17,9 +17,8 @@ const modules = [
   { path: "/user", route: userRoute },
   { path: "/rating", route: ratingRoutes },
   { path: "/vote", route: voteRoutes },
-  {path:"/comments",route:commentRoutes}
+  { path: "/comments", route: commentRoutes },
 ];
-
 
 modules.forEach((module) => {
   route.use(module.path, module.route);
