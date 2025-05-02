@@ -2,6 +2,8 @@ import { Router } from "express";
 import { authControllers } from "./auth.controller";
 import validateRequest from "../../utils/validateRequest";
 import { authValidation } from "./auth.validation";
+import auth from "../../middlewares/auth";
+import { UserRole } from "../../../generated/prisma";
 
 const route = Router();
 
@@ -29,6 +31,11 @@ route.post(
   "/reset-password",
   validateRequest(authValidation.resetPasswordSchema),
   authControllers.resetPassword
+);
+route.get(
+  "/get-me",
+  auth(UserRole.ADMIN, UserRole.PREMIUM, UserRole.USER),
+  authControllers.getMe
 );
 
 export const authRoute = route;
