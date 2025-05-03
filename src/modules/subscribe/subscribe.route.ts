@@ -34,7 +34,7 @@ router.get(
 
 // Cancel subscription
 router.patch(
-  '/cancel/:subscriptionId',
+  '/cancel',
   auth(UserRole.USER, UserRole.PREMIUM),
   SubscriptionController.cancelUserSubscription
 );

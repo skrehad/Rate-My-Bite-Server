@@ -9,15 +9,24 @@ import { ISubscription, ISubscriptionPlan } from "./subscribe.interface";
 const cancelUserSubscription = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    const { subscriptionId } = req.params;
     
-    const cancelledSubscription = await SubscriptionService.cancelSubscription(subscriptionId, userId);
+    if (!userId) {
+      sendResponse(res, {
+        statusCode: httpStatus.UNAUTHORIZED,
+        success: false,
+        message: "User not authenticated",
+        data: null
+      });
+      return;
+    }
     
-    sendResponse<ISubscription>(res, {
+    const result = await SubscriptionService.cancelSubscription(userId);
+    
+    sendResponse(res, {
       statusCode: httpStatus.OK,
-      success: true,
+      success: result.success,
       message: "Subscription cancelled successfully",
-      data: cancelledSubscription
+      data: null
     });
   }
 );

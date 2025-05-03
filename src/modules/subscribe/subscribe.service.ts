@@ -1,5 +1,4 @@
 import { 
-  ISubscription, 
   ISubscriptionPlan, 
   ISubscriptionPaymentInitiate,
   ISubscriptionPlanDetails 
@@ -10,42 +9,19 @@ import { subscriptionPlans, calculateEndDate } from "../../utils/subscriptionPla
 import AppError from "../../errors/AppError";
 import prisma from "../../utils/prismaProvider";
 
-// Cancel subscription
-const cancelSubscription = async (subscriptionId: string, userId: string): Promise<ISubscription> => {
-  
-  const subscription = await prisma.subscription.findUnique({
-    where: { id: subscriptionId }
+// Cancel premium subscription
+const cancelSubscription = async (userId: string): Promise<{ success: boolean }> => {
+  // Simply update user status to non-premium
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      isPremium: false,
+      role: "USER",
+      premiumUntil: null
+    }
   });
 
-  if (!subscription) {
-    throw new AppError(httpStatus.NOT_FOUND, "Subscription not found");
-  }
-
-  if (subscription.userId !== userId) {
-    throw new AppError(httpStatus.FORBIDDEN, "Unauthorized to cancel this subscription");
-  }
-
-  return await prisma.$transaction(async (tx: any) => {
-    // Update the subscription status
-    const updatedSubscription = await tx.subscription.update({
-      where: { id: subscriptionId },
-      data: { 
-        status: "CANCELLED",
-        autoRenew: false
-      }
-    });
-
-    // Update user status
-    await tx.user.update({
-      where: { id: userId },
-      data: {
-        isPremium: false,
-        role: "USER"
-      }
-    });
-
-    return updatedSubscription;
-  });
+  return { success: true };
 };
 
 // Get subscription plans
@@ -115,7 +91,7 @@ const initiateSubscriptionPayment = async (payload: ISubscriptionPaymentInitiate
   };
 };
 
-// Verify subscription payment and create subscription if payment successful
+// Verify subscription payment and update user to premium if successful
 const verifySubscriptionPayment = async (orderId: string, userId: string): Promise<any> => {
   // Verify payment with Shurjopay
   const verificationResponse = await subscribeUtils.verifyPaymentAsync(orderId);
@@ -125,28 +101,22 @@ const verifySubscriptionPayment = async (orderId: string, userId: string): Promi
     
     // Get transaction ID and extract user ID from it
     const transactionId = (paymentInfo as any).order_id || orderId;
-    const orderParts = transactionId.split('_');
-    console.log("orderParts", orderParts.length);
     console.log("transactionId", transactionId);
     
-    if (orderParts) {
-      
-      
-      // Calculate subscription end date
-      const plan: ISubscriptionPlan = "MONTHLY";
-      const endDate = calculateEndDate(plan);
-      console.log("endDate", endDate);
-      
+    // Calculate subscription end date
+    const plan: ISubscriptionPlan = "MONTHLY";
+    const endDate = calculateEndDate(plan);
+    console.log("endDate", endDate);
     
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          isPremium: true,
-          role: "PREMIUM",
-          premiumUntil: endDate
-        }
-      });
-    }
+    // Simply update user to premium status
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        isPremium: true,
+        role: "PREMIUM",
+        premiumUntil: endDate
+      }
+    });
   }
   
   return verificationResponse;
