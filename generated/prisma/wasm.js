@@ -128,6 +128,21 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   isDeleted: 'isDeleted',
+  isPremium: 'isPremium',
+  premiumUntil: 'premiumUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  plan: 'plan',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  autoRenew: 'autoRenew',
+  transactionId: 'transactionId',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -208,6 +223,17 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   DELETED: 'DELETED'
 };
 
+exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.PostStatus = exports.$Enums.PostStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -221,6 +247,7 @@ exports.VoteStatus = exports.$Enums.VoteStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Subscription: 'Subscription',
   Category: 'Category',
   Post: 'Post',
   Comment: 'Comment',
