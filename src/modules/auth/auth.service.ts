@@ -12,6 +12,7 @@ const loginUser = async (payload: Partial<User>) => {
   const isUserExist = await prisma.user.findUnique({
     where: { email: payload?.email },
   });
+
   if (!isUserExist) {
     throw new AppError(status.BAD_REQUEST, "User does not exist");
   }
@@ -23,6 +24,7 @@ const loginUser = async (payload: Partial<User>) => {
     throw new AppError(status.BAD_REQUEST, "Password does not match");
   }
   const jwtData = {
+    id: isUserExist?.id,
     email: isUserExist?.email,
     status: isUserExist?.status,
     role: isUserExist?.role,

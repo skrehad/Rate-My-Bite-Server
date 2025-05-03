@@ -128,6 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   isDeleted: 'isDeleted',
+  isPremium: 'isPremium',
+  premiumUntil: 'premiumUntil',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
