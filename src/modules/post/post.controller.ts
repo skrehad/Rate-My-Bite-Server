@@ -3,6 +3,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { postServices } from "./post.service";
 import pick from "../../utils/pick";
+import { JwtPayload } from "jsonwebtoken";
 
 const createPost = catchAsync(async (req, res) => {
   const result = await postServices.createPost(req.body);
@@ -50,9 +51,33 @@ const getAllPost = catchAsync(async (req, res) => {
   });
 });
 
+const getAllPostByUser = catchAsync(async (req, res) => {
+  const result = await postServices.getAllPostByUser(req.user as JwtPayload);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Post retrived successfully",
+    data: result,
+  });
+});
 const getSinglePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
   const result = await postServices.getSinglePost(postId);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Post retrived successfully",
+    data: result,
+  });
+});
+const updatePostByUser = catchAsync(async (req, res) => {
+  const { postId } = req.params;
+
+  const result = await postServices.updatePostsByUser(
+    postId,
+    req.body,
+    req.user as JwtPayload
+  );
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -89,4 +114,6 @@ export const postControllers = {
   getSinglePost,
   updatePost,
   getAllPostByAdmin,
+  getAllPostByUser,
+  updatePostByUser,
 };

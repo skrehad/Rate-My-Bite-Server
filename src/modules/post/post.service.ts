@@ -7,12 +7,6 @@ import AppError from "../../errors/AppError";
 import status from "http-status";
 
 const createPost = async (payload: Post) => {
-  // const payload = req.body as Post;
-  // const file = req.file as IFile;
-  // if (file) {
-  //   const imageUrl = await imageUploader(file);
-  //   payload.image = imageUrl.secure_url;
-  // }
   const result = await prisma.post.create({
     data: payload,
   });
@@ -166,6 +160,20 @@ const getSinglePost = async (id: string) => {
   }
   return result;
 };
+const getAllPostByUser = async (payload: JwtPayload) => {
+  const result = await prisma.post.findMany({
+    where: {
+      userId: payload?.id,
+    },
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+    },
+  });
+  return result;
+};
 
 const updatePost = async (id: string, payload: Partial<Post>) => {
   const isPostExist = await prisma.post.findUnique({
@@ -192,6 +200,38 @@ const updatePost = async (id: string, payload: Partial<Post>) => {
   return result;
 };
 
+const updatePostsByUser = async (
+  id: string,
+  payload: Partial<Post>,
+  user: JwtPayload
+) => {
+  if (payload?.status || payload?.isPremium) {
+    throw new AppError(status.BAD_REQUEST, "You can't update status");
+  }
+  const isPostExist = await prisma.post.findUnique({
+    where: {
+      id,
+      userId: user?.id,
+    },
+  });
+  if (!isPostExist) {
+    throw new AppError(status.NOT_FOUND, "Post not found");
+  }
+  const result = await prisma.post.update({
+    where: {
+      id,
+    },
+    data: payload,
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+    },
+  });
+  return result;
+};
+
 export const postServices = {
   createPost,
   createMany,
@@ -199,4 +239,6 @@ export const postServices = {
   getSinglePost,
   updatePost,
   getAllPostByAdmin,
+  getAllPostByUser,
+  updatePostsByUser,
 };

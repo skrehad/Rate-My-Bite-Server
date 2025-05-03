@@ -10,6 +10,7 @@ interface IResponse<T> {
     page: number;
     limit: number;
     total: number;
+    totalPage?: number;
   };
 }
 const sendResponse = <T>(res: Response, data: IResponse<T>) => {
