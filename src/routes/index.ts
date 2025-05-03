@@ -7,6 +7,7 @@ import { userRoute } from "../modules/user/user.route";
 import { ratingRoutes } from "../modules/Rating/rating.routes";
 import { voteRoutes } from "../modules/Vote/vote.route";
 import { subscribeRoute } from "../modules/subscribe/subscribe.route";
+import { commentRoutes } from "../modules/comment/comment.routes";
 
 const route = Router();
 const modules = [
@@ -18,6 +19,7 @@ const modules = [
   { path: "/rating", route: ratingRoutes },
   { path: "/vote", route: voteRoutes },
   { path: "/subscription", route: subscribeRoute },
+  { path: "/comments", route: commentRoutes },
 ];
 
 modules.forEach((module) => {
