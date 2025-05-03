@@ -101,16 +101,6 @@ const verifyPayment = catchAsync(
     const { order_id } = req.query;
     const userId = req.user?.id;
     
-    if (!order_id || typeof order_id !== 'string') {
-      sendResponse(res, {
-        statusCode: httpStatus.BAD_REQUEST,
-        success: false,
-        message: "Order ID is required",
-        data: null
-      });
-      return;
-    }
-
     console.log("userId from verify payment controller", userId);
     
     if (!userId) {
@@ -123,7 +113,31 @@ const verifyPayment = catchAsync(
       return;
     }
     
+    if (!order_id || typeof order_id !== 'string') {
+      sendResponse(res, {
+        statusCode: httpStatus.BAD_REQUEST,
+        success: false,
+        message: "Order ID is required",
+        data: null
+      });
+      return;
+    }
+    
     const result = await SubscriptionService.verifySubscriptionPayment(order_id, userId);
+    
+    // Check if a user has previously cancelled - special handling
+    if (result && result.status === 'CANCELLED') {
+      sendResponse(res, {
+        statusCode: httpStatus.BAD_REQUEST,
+        success: false,
+        message: result.message || "User previously cancelled - new payment required",
+        data: {
+          status: 'CANCELLED',
+          requiresNewPayment: true
+        }
+      });
+      return;
+    }
     
     if (result && result.length > 0) {
       const isSuccess = result[0].bank_status === 'Success';
@@ -158,13 +172,15 @@ const checkUserSubscription = catchAsync(
         statusCode: httpStatus.UNAUTHORIZED,
         success: false,
         message: "User not authenticated",
-        data: { isSubscribed: false }
+        data: { 
+          isSubscribed: false,
+          hasCancelled: false
+        }
       });
       return;
     }
     
     try {
-      console.log("Checking subscription for user:", userId);
       // Get subscription status from service
       const subscriptionStatus = await SubscriptionService.checkUserSubscription(userId);
       
@@ -173,7 +189,9 @@ const checkUserSubscription = catchAsync(
         success: true,
         message: subscriptionStatus.isSubscribed 
           ? "User has an active subscription" 
-          : "User has no active subscription",
+          : subscriptionStatus.hasCancelled
+              ? "User has cancelled subscription"
+              : "User has no active subscription",
         data: subscriptionStatus
       });
     } catch (error: any) {
@@ -181,7 +199,10 @@ const checkUserSubscription = catchAsync(
         statusCode: error.statusCode || httpStatus.INTERNAL_SERVER_ERROR,
         success: false,
         message: error.message || "Failed to check subscription status",
-        data: { isSubscribed: false }
+        data: { 
+          isSubscribed: false,
+          hasCancelled: false
+        }
       });
     }
   }

@@ -9,19 +9,31 @@ import { subscriptionPlans, calculateEndDate } from "../../utils/subscriptionPla
 import AppError from "../../errors/AppError";
 import prisma from "../../utils/prismaProvider";
 
+// Track cancelled users by ID
+const cancelledUsers = new Set<string>();
+
 // Cancel premium subscription
 const cancelSubscription = async (userId: string): Promise<{ success: boolean }> => {
-  // Simply update user status to non-premium
-  await prisma.user.update({
-    where: { id: userId },
-    data: {
-      isPremium: false,
-      role: "USER",
-      premiumUntil: null
-    }
-  });
-
-  return { success: true };
+  try {
+    // Add user to cancelled set
+    cancelledUsers.add(userId);
+    console.log(`Added user ${userId} to cancelled users`);
+    
+    // Update user status to non-premium
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        isPremium: false,
+        role: "USER",
+        premiumUntil: null
+      }
+    });
+    
+    return { success: true };
+  } catch (error) {
+    console.error("Error cancelling subscription:", error);
+    return { success: false };
+  }
 };
 
 // Get subscription plans
@@ -34,6 +46,7 @@ const checkUserSubscription = async (userId: string): Promise<{
   isSubscribed: boolean;
   premiumUntil: Date | null;
   role: string;
+  hasCancelled: boolean;
 }> => {
   if (!userId) {
     throw new AppError(httpStatus.UNAUTHORIZED, "User ID is required");
@@ -48,11 +61,15 @@ const checkUserSubscription = async (userId: string): Promise<{
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
+  
+  // Check if user has cancelled before
+  const hasCancelled = cancelledUsers.has(userId);
 
   return {
     isSubscribed: user.isPremium || false,
     premiumUntil: user.premiumUntil,
-    role: user.role
+    role: user.role,
+    hasCancelled
   };
 };
 
@@ -62,6 +79,13 @@ const initiateSubscriptionPayment = async (payload: ISubscriptionPaymentInitiate
   
   // Create a transaction ID to track this payment
   const transactionId = `SUB_${Date.now()}_${userId.substring(0, 8)}`;
+  
+  // If a user is initiating a new payment, remove them from cancelled users list
+  // This allows them to make a new payment and verify it
+  if (cancelledUsers.has(userId)) {
+    console.log(`User ${userId} is making a new payment after cancellation - clearing cancelled status`);
+    cancelledUsers.delete(userId);
+  }
   
   // Prepare payment payload for Shurjopay
   const shurjopayPayload = {
@@ -99,16 +123,26 @@ const verifySubscriptionPayment = async (orderId: string, userId: string): Promi
   if (verificationResponse?.length && verificationResponse[0].bank_status === 'Success') {
     const paymentInfo = verificationResponse[0];
     
-    // Get transaction ID and extract user ID from it
+    // Get transaction ID
     const transactionId = (paymentInfo as any).order_id || orderId;
     console.log("transactionId", transactionId);
+    
+    // Check if user has cancelled their subscription before
+    if (cancelledUsers.has(userId)) {
+      console.log(`User ${userId} previously cancelled - must make a new payment`);
+      return {
+        ...verificationResponse,
+        status: 'CANCELLED',
+        message: 'User has previously cancelled subscription - new payment required'
+      };
+    }
     
     // Calculate subscription end date
     const plan: ISubscriptionPlan = "MONTHLY";
     const endDate = calculateEndDate(plan);
     console.log("endDate", endDate);
     
-    // Simply update user to premium status
+    // Update user to premium status
     await prisma.user.update({
       where: { id: userId },
       data: {
@@ -117,6 +151,11 @@ const verifySubscriptionPayment = async (orderId: string, userId: string): Promi
         premiumUntil: endDate
       }
     });
+    
+    // If they had cancelled before, they've now successfully renewed
+    if (cancelledUsers.has(userId)) {
+      cancelledUsers.delete(userId);
+    }
   }
   
   return verificationResponse;
