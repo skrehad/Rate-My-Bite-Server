@@ -32,52 +32,22 @@ enum PostStatus {
   REJECTED
 }
 
-enum SubscriptionPlan {
-  MONTHLY
-  YEARLY
-}
-
-enum SubscriptionStatus {
-  ACTIVE
-  EXPIRED
-  CANCELLED
-}
-
 model User {
-  id            String         @id @default(uuid())
-  fullName      String?
-  email         String         @unique
-  password      String
-  role          UserRole       @default(USER)
-  status        UserStatus     @default(ACTIVE)
-  isDeleted     Boolean        @default(false)
-  isPremium     Boolean        @default(false)
-  premiumUntil  DateTime?
-  posts         Post[]
-  comments      Comment[]
-  ratings       Rating[]
-  votes         Vote[]
-  subscriptions Subscription[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-}
-
-model Subscription {
-  id            String             @id @default(uuid())
-  plan          SubscriptionPlan
-  status        SubscriptionStatus @default(ACTIVE)
-  startDate     DateTime           @default(now())
-  endDate       DateTime
-  autoRenew     Boolean            @default(true)
-  transactionId String?            @unique
-  userId        String
-  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
-
-  @@index([userId])
-  @@index([status])
-  @@index([transactionId])
+  id           String     @id @default(uuid())
+  fullName     String?
+  email        String     @unique
+  password     String
+  role         UserRole   @default(USER)
+  status       UserStatus @default(ACTIVE)
+  isDeleted    Boolean    @default(false)
+  isPremium    Boolean    @default(false)
+  premiumUntil DateTime?
+  posts        Post[]
+  comments     Comment[]
+  ratings      Rating[]
+  votes        Vote[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Category {
