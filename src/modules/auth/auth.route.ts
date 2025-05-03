@@ -19,8 +19,7 @@ route.post(
 );
 route.post(
   "/change-password",
-  // validateRequest(authValidation.changePasswordSchema),
-
+  validateRequest(authValidation.changePasswordSchema),
   authControllers.changePasswordWithOldPassword
 );
 route.post(

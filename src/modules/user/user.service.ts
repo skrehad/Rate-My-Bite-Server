@@ -20,6 +20,7 @@ const getAllUser = async (paginateQuery: Record<string, unknown>) => {
       total: await prisma.user.count({}),
       page: Number(page),
       limit: Number(limit),
+      totalPage: Math.ceil(result.length / Number(limit)),
     },
   };
 };

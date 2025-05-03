@@ -57,6 +57,7 @@ const registerNewUser = async (payload: User) => {
     data: payload,
   });
   const jwtData = {
+    id: result?.id,
     email: result?.email,
     status: result?.status,
     role: result?.role,
@@ -111,6 +112,7 @@ const generateForgetPasswordLink = async (payload: { email: string }) => {
     throw new AppError(status.NOT_FOUND, "User does not exist");
   }
   const jwtData = {
+    id: isUserExist?.id,
     email: isUserExist?.email,
     status: isUserExist?.status,
     role: isUserExist?.role,
@@ -179,6 +181,7 @@ const generateAccessToken = async (token: string) => {
     throw new AppError(status.BAD_REQUEST, "User is not active");
   }
   const jwtData = {
+    id: isUserExist?.id,
     email: isUserExist?.email,
     status: isUserExist?.status,
     role: isUserExist?.role,
