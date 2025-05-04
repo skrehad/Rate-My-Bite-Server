@@ -186,6 +186,18 @@ exports.Prisma.VoteScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  transactionId: 'transactionId',
+  paymentMethod: 'paymentMethod',
+  plan: 'plan',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -229,7 +241,8 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   Comment: 'Comment',
   Rating: 'Rating',
-  Vote: 'Vote'
+  Vote: 'Vote',
+  Transaction: 'Transaction'
 };
 
 /**

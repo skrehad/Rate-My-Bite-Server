@@ -152,6 +152,18 @@ const verifySubscriptionPayment = async (orderId: string, userId: string): Promi
       }
     });
     
+    // Record transaction in database
+    await prisma.transaction.create({
+      data: {
+        userId,
+        amount: paymentInfo.amount,
+        transactionId,
+        paymentMethod: 'ShurjoPay',
+        plan,
+        status: 'SUCCESS'
+      }
+    });
+    
     // If they had cancelled before, they've now successfully renewed
     if (cancelledUsers.has(userId)) {
       cancelledUsers.delete(userId);
