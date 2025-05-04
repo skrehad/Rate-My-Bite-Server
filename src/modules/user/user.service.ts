@@ -1,4 +1,4 @@
-import { User } from "../../../generated/prisma";
+import { User, UserStatus } from "../../../generated/prisma";
 import prisma from "../../utils/prismaProvider";
 
 const getAllUser = async (paginateQuery: Record<string, unknown>) => {
@@ -20,7 +20,7 @@ const getAllUser = async (paginateQuery: Record<string, unknown>) => {
       total: await prisma.user.count({}),
       page: Number(page),
       limit: Number(limit),
-      totalPage: Math.ceil(result.length / Number(limit)),
+      totalPage: Math.ceil((await prisma.user.count({})) / Number(limit)),
     },
   };
 };
@@ -55,9 +55,22 @@ const updateUser = async (id: string, payload: Partial<User>) => {
   });
   return result;
 };
+const deleteUser = async (id: string) => {
+  const result = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      isDeleted: true,
+      status: UserStatus.DELETED,
+    },
+  });
+  return result;
+};
 
 export const userServices = {
   getAllUser,
   updateUser,
   getSingleUser,
+  deleteUser,
 };

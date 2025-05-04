@@ -7,6 +7,7 @@ import AppError from "../../errors/AppError";
 import status from "http-status";
 
 const createPost = async (payload: Post) => {
+  console.log("Upload", { payload });
   const result = await prisma.post.create({
     data: payload,
   });
@@ -102,6 +103,9 @@ const getAllPost = async (
     where: whereCondition,
     take: Number(limit),
     skip,
+    orderBy: {
+      createdAt: "desc",
+    },
     include: {
       category: true,
       ratings: true,
@@ -126,6 +130,9 @@ const getAllPostByAdmin = async (paginateQuery: Record<string, unknown>) => {
   const result = await prisma.post.findMany({
     take: Number(limit),
     skip,
+    orderBy: {
+      createdAt: "desc",
+    },
     include: {
       category: true,
       ratings: true,
@@ -139,6 +146,7 @@ const getAllPostByAdmin = async (paginateQuery: Record<string, unknown>) => {
       total: await prisma.post.count({}),
       page: Number(page),
       limit: Number(limit),
+      totalPage: Math.ceil((await prisma.post.count({})) / Number(limit)),
     },
   };
 };

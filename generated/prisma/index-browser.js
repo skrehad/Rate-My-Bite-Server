@@ -152,6 +152,7 @@ exports.Prisma.PostScalarFieldEnum = {
   priceRange: 'priceRange',
   isPremium: 'isPremium',
   status: 'status',
+  reasons: 'reasons',
   categoryId: 'categoryId',
   userId: 'userId',
   createdAt: 'createdAt',

@@ -8,5 +8,6 @@ const route = Router();
 route.get("/", auth(UserRole.ADMIN), userControllers.getAllUser);
 route.patch("/:userId", auth(UserRole.ADMIN), userControllers.updateUser);
 route.get("/:userId", auth(UserRole.ADMIN), userControllers.getSingleUser);
+route.delete("/:userId", auth(UserRole.ADMIN), userControllers.deleteUser);
 
 export const userRoute = route;
