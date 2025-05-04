@@ -67,6 +67,7 @@ model Post {
   priceRange    String       // e.g. "Low", "Medium", "High"
   isPremium     Boolean      @default(false)
   status        PostStatus   @default(PENDING)
+  reasons  String?
   categoryId    String
   category      Category @relation(fields: [categoryId], references: [id])
   userId        String

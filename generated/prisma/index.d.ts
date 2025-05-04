@@ -3849,6 +3849,7 @@ export namespace Prisma {
     priceRange: string | null
     isPremium: boolean | null
     status: $Enums.PostStatus | null
+    reasons: string | null
     categoryId: string | null
     userId: string | null
     createdAt: Date | null
@@ -3865,6 +3866,7 @@ export namespace Prisma {
     priceRange: string | null
     isPremium: boolean | null
     status: $Enums.PostStatus | null
+    reasons: string | null
     categoryId: string | null
     userId: string | null
     createdAt: Date | null
@@ -3881,6 +3883,7 @@ export namespace Prisma {
     priceRange: number
     isPremium: number
     status: number
+    reasons: number
     categoryId: number
     userId: number
     createdAt: number
@@ -3907,6 +3910,7 @@ export namespace Prisma {
     priceRange?: true
     isPremium?: true
     status?: true
+    reasons?: true
     categoryId?: true
     userId?: true
     createdAt?: true
@@ -3923,6 +3927,7 @@ export namespace Prisma {
     priceRange?: true
     isPremium?: true
     status?: true
+    reasons?: true
     categoryId?: true
     userId?: true
     createdAt?: true
@@ -3939,6 +3944,7 @@ export namespace Prisma {
     priceRange?: true
     isPremium?: true
     status?: true
+    reasons?: true
     categoryId?: true
     userId?: true
     createdAt?: true
@@ -4042,6 +4048,7 @@ export namespace Prisma {
     priceRange: string
     isPremium: boolean
     status: $Enums.PostStatus
+    reasons: string | null
     categoryId: string
     userId: string
     createdAt: Date
@@ -4077,6 +4084,7 @@ export namespace Prisma {
     priceRange?: boolean
     isPremium?: boolean
     status?: boolean
+    reasons?: boolean
     categoryId?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -4099,6 +4107,7 @@ export namespace Prisma {
     priceRange?: boolean
     isPremium?: boolean
     status?: boolean
+    reasons?: boolean
     categoryId?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -4117,6 +4126,7 @@ export namespace Prisma {
     priceRange?: boolean
     isPremium?: boolean
     status?: boolean
+    reasons?: boolean
     categoryId?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -4135,13 +4145,14 @@ export namespace Prisma {
     priceRange?: boolean
     isPremium?: boolean
     status?: boolean
+    reasons?: boolean
     categoryId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "location" | "image" | "price" | "priceRange" | "isPremium" | "status" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "location" | "image" | "price" | "priceRange" | "isPremium" | "status" | "reasons" | "categoryId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4178,6 +4189,7 @@ export namespace Prisma {
       priceRange: string
       isPremium: boolean
       status: $Enums.PostStatus
+      reasons: string | null
       categoryId: string
       userId: string
       createdAt: Date
@@ -4619,6 +4631,7 @@ export namespace Prisma {
     readonly priceRange: FieldRef<"Post", 'String'>
     readonly isPremium: FieldRef<"Post", 'Boolean'>
     readonly status: FieldRef<"Post", 'PostStatus'>
+    readonly reasons: FieldRef<"Post", 'String'>
     readonly categoryId: FieldRef<"Post", 'String'>
     readonly userId: FieldRef<"Post", 'String'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
@@ -8432,6 +8445,7 @@ export namespace Prisma {
     priceRange: 'priceRange',
     isPremium: 'isPremium',
     status: 'status',
+    reasons: 'reasons',
     categoryId: 'categoryId',
     userId: 'userId',
     createdAt: 'createdAt',
@@ -8790,6 +8804,7 @@ export namespace Prisma {
     priceRange?: StringFilter<"Post"> | string
     isPremium?: BoolFilter<"Post"> | boolean
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    reasons?: StringNullableFilter<"Post"> | string | null
     categoryId?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
@@ -8811,6 +8826,7 @@ export namespace Prisma {
     priceRange?: SortOrder
     isPremium?: SortOrder
     status?: SortOrder
+    reasons?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -8835,6 +8851,7 @@ export namespace Prisma {
     priceRange?: StringFilter<"Post"> | string
     isPremium?: BoolFilter<"Post"> | boolean
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    reasons?: StringNullableFilter<"Post"> | string | null
     categoryId?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
@@ -8856,6 +8873,7 @@ export namespace Prisma {
     priceRange?: SortOrder
     isPremium?: SortOrder
     status?: SortOrder
+    reasons?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -8880,6 +8898,7 @@ export namespace Prisma {
     priceRange?: StringWithAggregatesFilter<"Post"> | string
     isPremium?: BoolWithAggregatesFilter<"Post"> | boolean
     status?: EnumPostStatusWithAggregatesFilter<"Post"> | $Enums.PostStatus
+    reasons?: StringNullableWithAggregatesFilter<"Post"> | string | null
     categoryId?: StringWithAggregatesFilter<"Post"> | string
     userId?: StringWithAggregatesFilter<"Post"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
@@ -9261,6 +9280,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPostsInput
@@ -9280,6 +9300,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     userId: string
     createdAt?: Date | string
@@ -9299,6 +9320,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPostsNestedInput
@@ -9318,6 +9340,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9337,6 +9360,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     userId: string
     createdAt?: Date | string
@@ -9353,6 +9377,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9367,6 +9392,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9868,6 +9894,7 @@ export namespace Prisma {
     priceRange?: SortOrder
     isPremium?: SortOrder
     status?: SortOrder
+    reasons?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -9888,6 +9915,7 @@ export namespace Prisma {
     priceRange?: SortOrder
     isPremium?: SortOrder
     status?: SortOrder
+    reasons?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -9904,6 +9932,7 @@ export namespace Prisma {
     priceRange?: SortOrder
     isPremium?: SortOrder
     status?: SortOrder
+    reasons?: SortOrder
     categoryId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -10846,6 +10875,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPostsInput
@@ -10864,6 +10894,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10989,6 +11020,7 @@ export namespace Prisma {
     priceRange?: StringFilter<"Post"> | string
     isPremium?: BoolFilter<"Post"> | boolean
     status?: EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+    reasons?: StringNullableFilter<"Post"> | string | null
     categoryId?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
@@ -11089,6 +11121,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
@@ -11107,6 +11140,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11448,6 +11482,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPostsInput
@@ -11466,6 +11501,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     userId: string
     createdAt?: Date | string
@@ -11545,6 +11581,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPostsNestedInput
@@ -11563,6 +11600,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11620,6 +11658,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPostsInput
@@ -11638,6 +11677,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     userId: string
     createdAt?: Date | string
@@ -11717,6 +11757,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPostsNestedInput
@@ -11735,6 +11776,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11792,6 +11834,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPostsInput
@@ -11810,6 +11853,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     userId: string
     createdAt?: Date | string
@@ -11889,6 +11933,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPostsNestedInput
@@ -11907,6 +11952,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11925,6 +11971,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     categoryId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11964,6 +12011,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPostsNestedInput
@@ -11982,6 +12030,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12000,6 +12049,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12087,6 +12137,7 @@ export namespace Prisma {
     priceRange: string
     isPremium?: boolean
     status?: $Enums.PostStatus
+    reasons?: string | null
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12102,6 +12153,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
@@ -12120,6 +12172,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12138,6 +12191,7 @@ export namespace Prisma {
     priceRange?: StringFieldUpdateOperationsInput | string
     isPremium?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    reasons?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
