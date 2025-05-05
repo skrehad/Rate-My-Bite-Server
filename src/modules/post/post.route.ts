@@ -26,6 +26,11 @@ route.patch(
   auth(UserRole.USER, UserRole.PREMIUM),
   postControllers.updatePostByUser
 );
+route.get(
+  "/user",
+  auth(UserRole.USER, UserRole.PREMIUM),
+  postControllers.getAllPostByUser
+);
 route.get("/admin", auth(UserRole.ADMIN), postControllers.getAllPostByAdmin);
 route.get("/:postId", postControllers.getSinglePost);
 

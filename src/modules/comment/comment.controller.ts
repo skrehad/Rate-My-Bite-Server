@@ -4,6 +4,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import status from "http-status";
 import { commentService } from "./comment.service";
+import { JwtPayload } from "jsonwebtoken";
 
 const createCommentIntoDB = catchAsync(async (req: Request, res: Response) => {
   const result = await commentService.createComment(req.body);
@@ -17,6 +18,18 @@ const createCommentIntoDB = catchAsync(async (req: Request, res: Response) => {
 });
 const getAllComment = catchAsync(async (req: Request, res: Response) => {
   const result = await commentService.getAllComment();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: status.OK,
+    message: "Comment get successfully",
+    data: result,
+  });
+});
+const getAllUsersComment = catchAsync(async (req: Request, res: Response) => {
+  const result = await commentService.getAllUsersComment(
+    req.user as JwtPayload
+  );
 
   sendResponse(res, {
     success: true,
@@ -41,4 +54,5 @@ export const commentController = {
   getSingleCommentbyId,
   getAllComment,
   createCommentIntoDB,
+  getAllUsersComment,
 };
