@@ -3,6 +3,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { userServices } from "./user.service";
 import pick from "../../utils/pick";
+import { JwtPayload } from "jsonwebtoken";
 
 const getAllUser = catchAsync(async (req, res) => {
   const paginateQuery = pick(req.query, ["page", "limit"]);
@@ -45,10 +46,21 @@ const deleteUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getUserCredential = catchAsync(async (req, res) => {
+  const result = await userServices.getuserCredentials(req?.user as JwtPayload);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "User credential retrived successfully",
+    data: result,
+  });
+});
 
 export const userControllers = {
   getAllUser,
   updateUser,
   deleteUser,
   getSingleUser,
+  getUserCredential,
 };

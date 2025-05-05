@@ -12,6 +12,40 @@ const getAdminCredentials = async () => {
   const totalCategories = await prisma.category.count({});
   const totalRatings = await prisma.rating.count({});
   const totalVotes = await prisma.vote.count({});
+  const posts = await prisma.post.findMany({
+    take: 3,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+      user: true,
+    },
+  });
+  const users = await prisma.user.findMany({
+    take: 3,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      comments: true,
+      votes: true,
+      ratings: true,
+      posts: true,
+    },
+  });
+  const categories = await prisma.category.findMany({
+    take: 3,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      posts: true,
+    },
+  });
   return {
     totalPosts: totasPosts,
     totalUsers: totalUsers,
@@ -20,6 +54,9 @@ const getAdminCredentials = async () => {
     totalCategories,
     totalRatings,
     totalVotes,
+    posts,
+    users,
+    categories,
   };
 };
 

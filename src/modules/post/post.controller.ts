@@ -52,7 +52,11 @@ const getAllPost = catchAsync(async (req, res) => {
 });
 
 const getAllPostByUser = catchAsync(async (req, res) => {
-  const result = await postServices.getAllPostByUser(req.user as JwtPayload);
+  const paginateQuery = pick(req.query, ["page", "limit"]);
+  const result = await postServices.getAllPostByUser(
+    req.user as JwtPayload,
+    paginateQuery
+  );
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -98,6 +102,8 @@ const getAllPostByAdmin = catchAsync(async (req, res) => {
 });
 const updatePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
+
+  console.log({ req: req.body, postId });
   const result = await postServices.updatePost(postId, req.body);
   sendResponse(res, {
     statusCode: status.OK,

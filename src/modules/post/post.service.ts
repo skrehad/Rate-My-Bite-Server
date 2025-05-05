@@ -111,6 +111,7 @@ const getAllPost = async (
       ratings: true,
       votes: true,
       comments: true,
+      user: true,
     },
   });
   return {
@@ -138,6 +139,7 @@ const getAllPostByAdmin = async (paginateQuery: Record<string, unknown>) => {
       ratings: true,
       votes: true,
       comments: true,
+      user: true,
     },
   });
   return {
@@ -161,6 +163,7 @@ const getSinglePost = async (id: string) => {
       ratings: true,
       votes: true,
       comments: true,
+      user: true,
     },
   });
   if (!result) {
@@ -168,19 +171,48 @@ const getSinglePost = async (id: string) => {
   }
   return result;
 };
-const getAllPostByUser = async (payload: JwtPayload) => {
+const getAllPostByUser = async (
+  payload: JwtPayload,
+  paginateQuery: Record<string, unknown>
+) => {
+  const { page = 1, limit = 10 } = paginateQuery;
+  const skip = (Number(page) - 1) * Number(limit);
   const result = await prisma.post.findMany({
     where: {
       userId: payload?.id,
     },
+    take: Number(limit),
+    skip,
+    orderBy: {
+      createdAt: "desc",
+    },
     include: {
       category: true,
+      user: true,
       ratings: true,
       votes: true,
       comments: true,
     },
   });
-  return result;
+  return {
+    data: result,
+    meta: {
+      total: await prisma.post.count({
+        where: {
+          userId: payload?.id,
+        },
+      }),
+      page: Number(page),
+      limit: Number(limit),
+      totalPage: Math.ceil(
+        (await prisma.post.count({
+          where: {
+            userId: payload?.id,
+          },
+        })) / Number(limit)
+      ),
+    },
+  };
 };
 
 const updatePost = async (id: string, payload: Partial<Post>) => {
@@ -202,6 +234,7 @@ const updatePost = async (id: string, payload: Partial<Post>) => {
       ratings: true,
       votes: true,
       comments: true,
+      user: true,
     },
   });
 
@@ -220,6 +253,13 @@ const updatePostsByUser = async (
     where: {
       id,
       userId: user?.id,
+    },
+    include: {
+      category: true,
+      ratings: true,
+      votes: true,
+      comments: true,
+      user: true,
     },
   });
   if (!isPostExist) {
