@@ -75,7 +75,7 @@ const checkUserSubscription = async (userId: string): Promise<{
 
 // Initiate subscription payment
 const initiateSubscriptionPayment = async (payload: ISubscriptionPaymentInitiate): Promise<{ checkout_url: string, transactionId: string }> => {
-  const { userId, plan, customerName, customerEmail, amount } = payload;
+  const { userId, plan, customerName, customerEmail, amount, customerPhone, customerAddress, customerCity } = payload;
   
   // Create a transaction ID to track this payment
   const transactionId = `SUB_${Date.now()}_${userId.substring(0, 8)}`;
@@ -86,6 +86,8 @@ const initiateSubscriptionPayment = async (payload: ISubscriptionPaymentInitiate
     console.log(`User ${userId} is making a new payment after cancellation - clearing cancelled status`);
     cancelledUsers.delete(userId);
   }
+
+  console.log({payload})
   
   // Prepare payment payload for Shurjopay
   const shurjopayPayload = {
@@ -95,9 +97,9 @@ const initiateSubscriptionPayment = async (payload: ISubscriptionPaymentInitiate
     customer_name: customerName,
     customer_email: customerEmail,
     client_ip: "127.0.0.1",
-    customer_phone: "01783278214", 
-    customer_city: "Pabna",
-    customer_address: "Pabna, Bangladesh" 
+    customer_phone: customerPhone, 
+    customer_city: customerCity,
+    customer_address: customerAddress 
   };
 
   // Make payment request to Shurjopay
