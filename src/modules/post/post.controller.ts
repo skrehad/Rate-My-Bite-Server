@@ -64,6 +64,15 @@ const getAllPostByUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getHomePageAllPost = catchAsync(async (req, res) => {
+  const result = await postServices.getHomePageAllPost();
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Post retrived successfully",
+    data: result,
+  });
+});
 const getSinglePost = catchAsync(async (req, res) => {
   const { postId } = req.params;
   const result = await postServices.getSinglePost(postId);
@@ -122,4 +131,5 @@ export const postControllers = {
   getAllPostByAdmin,
   getAllPostByUser,
   updatePostByUser,
+  getHomePageAllPost,
 };

@@ -214,6 +214,27 @@ const getAllPostByUser = async (
     },
   };
 };
+const getHomePageAllPost = async () => {
+  console.log("getHomePageAllPost");
+  const result = await prisma.post.findMany({
+    where: {
+      isPremium: false,
+      status: PostStatus.APPROVED,
+    },
+    include: {
+      category: {
+        include: {
+          posts: true,
+        },
+      },
+      ratings: true,
+      votes: true,
+      comments: true,
+      user: true,
+    },
+  });
+  return result;
+};
 
 const updatePost = async (id: string, payload: Partial<Post>) => {
   const isPostExist = await prisma.post.findUnique({
@@ -289,4 +310,5 @@ export const postServices = {
   getAllPostByAdmin,
   getAllPostByUser,
   updatePostsByUser,
+  getHomePageAllPost,
 };
