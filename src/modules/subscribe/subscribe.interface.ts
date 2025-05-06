@@ -34,18 +34,21 @@ export interface ISubscriptionPaymentInitiate {
   customerName: string;
   customerEmail: string;
   amount: number;
+  customerPhone: string;
+  customerAddress: string;
+  customerCity: string;
 }
 
 export interface ISubscriptionPlanDetails {
   MONTHLY: {
     name: string;
-    duration: number; // in days
+    duration: number;
     price: number;
     description: string;
   };
   YEARLY: {
     name: string;
-    duration: number; // in days
+    duration: number;
     price: number;
     description: string;
   };
