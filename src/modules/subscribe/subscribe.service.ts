@@ -139,8 +139,17 @@ const verifySubscriptionPayment = async (orderId: string, userId: string): Promi
       };
     }
     
-    // Calculate subscription end date
-    const plan: ISubscriptionPlan = "MONTHLY";
+
+    let plan: ISubscriptionPlan;
+
+    console.log("paymentInfo.amount", {paymentInfo});
+    
+    if (paymentInfo.amount >= 2000) {
+      plan = "YEARLY";
+    } else {
+      plan = "MONTHLY";
+    }
+    
     const endDate = calculateEndDate(plan);
     console.log("endDate", endDate);
     
