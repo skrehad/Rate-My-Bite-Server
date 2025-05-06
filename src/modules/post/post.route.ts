@@ -16,6 +16,7 @@ route.post(
   postControllers.createMany
 );
 route.get("/", postControllers.getAllPost);
+route.get("/all", postControllers.getHomePageAllPost);
 route.get(
   "/user",
   auth(UserRole.USER, UserRole.PREMIUM),
