@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRoute = void 0;
+const express_1 = require("express");
+const auth_controller_1 = require("./auth.controller");
+const validateRequest_1 = __importDefault(require("../../utils/validateRequest"));
+const auth_validation_1 = require("./auth.validation");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const prisma_1 = require("../../../generated/prisma");
+const route = (0, express_1.Router)();
+route.post("/login", (0, validateRequest_1.default)(auth_validation_1.authValidation.loginValidationSchema), auth_controller_1.authControllers.loginUser);
+route.post("/register", (0, validateRequest_1.default)(auth_validation_1.authValidation.registrationValidationSchema), auth_controller_1.authControllers.registerNewUser);
+route.post("/change-password", (0, validateRequest_1.default)(auth_validation_1.authValidation.changePasswordSchema), auth_controller_1.authControllers.changePasswordWithOldPassword);
+route.post("/forget-password", (0, validateRequest_1.default)(auth_validation_1.authValidation.forgetPasswordSchema), auth_controller_1.authControllers.forgetPassword);
+route.post("/reset-password", (0, validateRequest_1.default)(auth_validation_1.authValidation.resetPasswordSchema), auth_controller_1.authControllers.resetPassword);
+route.get("/get-me", (0, auth_1.default)(prisma_1.UserRole.ADMIN, prisma_1.UserRole.PREMIUM, prisma_1.UserRole.USER), auth_controller_1.authControllers.getMe);
+route.post("/generate-access-token", auth_controller_1.authControllers.generateAccessToken);
+exports.authRoute = route;

@@ -11,4 +11,6 @@ route.get(
   adminControllers.getAdminCredentials
 );
 
+route.post("/make-admin", adminControllers.makeAdmin);
+
 export const adminRoute = route;
