@@ -50,6 +50,8 @@ const initiatePayment = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const { plan } = req.body as { plan: ISubscriptionPlan };
+
+   
     
     if (!userId) {
       sendResponse(res, {
@@ -74,12 +76,19 @@ const initiatePayment = catchAsync(
       });
       return;
     }
+
+    console.log("req.user", req.user)
+    console.log("req.body", req.body)
+    console.log({planDetails})
     
     const result = await SubscriptionService.initiateSubscriptionPayment({
       userId,
       plan,
-      customerName: req.user?.fullName || 'Customer',
+      customerName: req.body?.customerName || 'Customer',
+      customerPhone: req.body?.customerPhone,
       customerEmail: req.user?.email || '',
+      customerAddress: req.body?.customerAddress,
+      customerCity: req.body?.customerCity,
       amount: planDetails.price
     });
     
