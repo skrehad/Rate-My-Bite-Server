@@ -92,8 +92,8 @@ WEBSITE_URL=http://localhost:3000
 
 # Cloudinary Credentials
 CLOUDINARY_CLOUD_NAME="dlfhckrea"
-CLOUDINARY_API_KEY="644791924825471"
-CLOUDINARY_API_SECRET="YMX0_OXpkSSzhaoNmwceNx7wiIU"
+CLOUDINARY_API_KEY="644791sgsdfg924825471"
+CLOUDINARY_API_SECRET="YMX0_dfbdbhdOXpkSSzhaoNmwceNx7wiIU"
 
 # Email Configuration
 SENDER_EMAIL="alsujon2001@gmail.com"
