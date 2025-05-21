@@ -227,7 +227,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\h\\Desktop\\Level 2\\assignment\\project_9\\server\\generated\\prisma",
+      "value": "C:\\Users\\DELL\\Documents\\Rehad\\Rehad\\job project\\RateMyBite-server\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -241,7 +241,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\h\\Desktop\\Level 2\\assignment\\project_9\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\DELL\\Documents\\Rehad\\Rehad\\job project\\RateMyBite-server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
