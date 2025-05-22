@@ -60,7 +60,7 @@ Follow these steps to set up and run the project locally.
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Al-amin07/project-9-server
+git clone https://github.com/skrehad/Rate-My-Bite-Server
 ```
 
 ## 2. Install Dependencies
@@ -68,55 +68,13 @@ git clone https://github.com/Al-amin07/project-9-server
 Navigate to the project directory and install the necessary dependencies:
 
    ```bash
-   cd project-9-server
+   cd Rate-My-Bite-Server
    npm install
    ```
 
 ## 3. Set Up Environment Variables
-Create a .env file in the root of the project to store environment variables, such as MongoDB URI or any secret keys. Here’s an example:
-```bash
-DATABASE_URL="postgresql://assignment9_user:SD20uZIrGCasfsdfsdfsdCfTtZHnjlpr0qhOsyJRVBh@dpg-d0d4v1a4d50c73efcid0-a.oregon-postgres.render.com/assignment9"
-NODE_ENV=development
-PORT=5000
+Create a .env file in the project's root to store environment variables, such as MongoDB URI or secret keys. 
 
-JWT_ACCESS_SECRET=sdgsdgsdgjsdd
-JWT_ACCESS_EXPIRES_IN=10d
-JWT_REFRESH_SECRET=sdgsdgsdgjsddzlsdvsdl
-JWT_REFRESH_EXPIRES_IN=30d
-
-#Reset Credentials
-RESET_SECRET_KEY=dvddvbdbbd
-RESET_EXPIRES_IN=10m
-
-WEBSITE_URL=http://localhost:3000
-
-# Cloudinary Credentials
-CLOUDINARY_CLOUD_NAME="dlfhckrea"
-CLOUDINARY_API_KEY="644791sgsdfg924825471"
-CLOUDINARY_API_SECRET="YMX0_dfbdbhdOXpkSSzhaoNmwceNx7wiIU"
-
-# Email Configuration
-SENDER_EMAIL="alsujon2001@gmail.com"
-SENDER_APP_PASS="jshu txhb ckth heio"
-
-SP_ENDPOINT=https://sandbox.shurjopayment.com/
-SP_USERNAME=sp_sandbox
-SP_PASSWORD=pyyk97hu&6fvdsddu6
-SP_PREFIX=SP
-SP_RETURN_URL=http://localhost:3000/payment/verify
-
-# SSLCommerz Payment Info
-# STORE_NAME="teststore"
-# PAYMENT_API="https://sandbox.sslcommerz.com/gwprocess/v3/api.php"
-# VALIDATION_API="https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php"
-# STORE_ID="<your_store_id>"
-# STORE_PASSWORD="<your_store_password>"
-# VALIDATION_URL="<your_validation_url>"
-# SUCCESS_URL="<your_success_url>"
-# FAILED_URL="<your_failed_url>"
-# CANCEL_URL="<your_cancel_url>"
-
-```
 
 ## 4. Run the Project
 - **Development Mode**
